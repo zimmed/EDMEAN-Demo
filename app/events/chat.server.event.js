@@ -8,9 +8,9 @@ module.exports = function (Router) {
     router.add(function (message) {
         var io = router.getIO();
         if (!this.session.name) {
-            this.emit('message', {name: "SYS", msg: "You are not logged in."});
+            this.emit('message', {name: "SYS", message: "You are not logged in."});
         } else {
-            io.emit('message', {name: this.session.name, msg: message});
+            io.emit('message', {name: this.session.name, message: message});
         }
     });
 };

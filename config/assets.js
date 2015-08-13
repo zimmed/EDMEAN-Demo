@@ -40,6 +40,7 @@ module.exports = {
                 angular_resource: '/lib/angular-resource/angular-resource.min.js',
                 angular_animate: '/lib/angular-animate/angular-animate.min.js',
                 angular_bootstrap: '/lib/angular-bootstrap/ui-bootstrap.min.js'
+				angular_sanitize: '/lib/angular-sanitize/angular-sanitize.min.js'
             }
         }
     }
