@@ -2,11 +2,11 @@
 
 module.exports = {
     secure: false,
-    baseUrl: '//localhost',
+    baseUrl: '//192.100.1.12',
     mongoUrl: '//localhost',
     mongoDBName: 'edmean-test',
-    serverIP: 'localhost',
-    serverPort: '3030',
+    serverIP: '0.0.0.0',
+    serverPort: '80',
     loggerVerboseLevel: 'ALL',
     loggerDieLevel: 'ERROR',
     morganFormat: 'dev',
