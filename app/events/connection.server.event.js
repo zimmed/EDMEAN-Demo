@@ -10,8 +10,6 @@ module.exports = function (Router) {
 
         log('User connected.');
 
-        this.emit('client-connected');
-
         io.emit('connections-changed', io.sockets.sockets.length);
     });
 };
