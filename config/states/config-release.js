@@ -1,17 +1,17 @@
 'use strict';
 
 module.exports = {
-    secure: true,
-    baseUrl: '//localhost',
+    secure: false,
+    baseUrl: '//192.100.1.12',
     mongoUrl: '//localhost',
     mongoDBName: 'edmean-main',
     serverIP: '0.0.0.0',
-    serverPort: '443',
+    serverPort: '80',
     loggerVerboseLevel: 'INFO',
     loggerDieLevel: 'ERROR',
     morganFormat: 'tiny',
     loggerMethod: console.log,
     favicon: null,
 
-    sessionCookie: {secure: true}
+    sessionCookie: {secure: false}
 };

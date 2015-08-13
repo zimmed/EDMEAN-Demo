@@ -3,10 +3,12 @@
         <ul class="users col-lg-3 col-md-3 col-xs-3">
             <li ng-show="!user.connected"><strong><i>Disconnected</i></strong></li>
             <li ng-show="user.connected"><strong><i>In Room</i></strong></li>
-            <li ng-show="user.connected" ng-repeat="user in users"><em ng-bind-html="user"></em></li>
+            <li ng-show="user.connected" ng-repeat="(username, clr) in users">
+                <span ng-style="setNameStyle(clr)" ng-bind="username"></span>
+            </li>
         </ul>
         <ul class="messages col-lg-9 col-md-9 col-xs-9">
-            <li ng-repeat="message in messages | usersFilter:user.name track by $index ">
+            <li ng-repeat="message in messages track by $index ">
                 <span style="text-shadow:1px 1px 1px #000" ng-bind="message.name" ng-style="message.color" ng-show="message.name"></span>
                 <span ng-bind="message.message" ng-style="message.style"></span>
             </li>
