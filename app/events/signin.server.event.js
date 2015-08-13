@@ -14,7 +14,7 @@ module.exports = function (Router) {
             log('User registered name: ' + name);
             this.session.name = name;
 
-            this.emit('client-connected');
+            this.emit('client-connected', name);
             this.emit('message', {name: 'SYS', msg: "You are now known as " + name});
             this.broadcast.emit('connection', name);
         }
