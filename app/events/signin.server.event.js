@@ -8,14 +8,14 @@ module.exports = function (Router) {
 
     router.add(function (name) {
         if (names.hasOwnProperty(name)) {
-            this.emit('message', {name: 'SYS', msg: "This name is already in use."});
+            this.emit('message', {name: 'SYS', message: "This name is already in use."});
         } else {
             names[name] = true;
             log('User registered name: ' + name);
             this.session.name = name;
 
             this.emit('client-connected', name);
-            this.emit('message', {name: 'SYS', msg: "You are now known as " + name});
+            this.emit('message', {name: 'SYS', message: "You are now known as " + name});
             this.broadcast.emit('connection', name);
         }
     });

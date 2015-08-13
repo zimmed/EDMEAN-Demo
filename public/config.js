@@ -12,7 +12,8 @@
         applicationDependencies: [
             'ngResource',
             'ngAnimate',
-            'ui.bootstrap'
+            'ui.bootstrap',
+            'ngSanitize'
         ],
 
         moduleConstants: function (moduleName) {
