@@ -5,7 +5,7 @@ module.exports = {
     baseUrl: '//localhost',
     mongoUrl: '//localhost',
     mongoDBName: 'edmean-main',
-    serverIP: 'localhost',
+    serverIP: '0.0.0.0',
     serverPort: '443',
     loggerVerboseLevel: 'INFO',
     loggerDieLevel: 'ERROR',
