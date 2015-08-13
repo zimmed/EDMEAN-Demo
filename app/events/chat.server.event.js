@@ -1,7 +1,9 @@
 'use strict';
 
 var log = require('../../config/logger').logInfo,
-    names = require('../controllers/chat.server.controller');
+    cache = require('../controllers/cache.server.controller'),
+    names = cache.users,
+    messages = cache.messages;
 
 module.exports = function (Router) {
     var router = new Router('chat');
@@ -11,7 +13,9 @@ module.exports = function (Router) {
         if (!this.session.name) {
             this.emit('message', {name: "SYS", message: "You are not logged in."});
         } else {
-            io.emit('message', {name: this.session.name, message: message, color: names[this.session.name]});
+            var m = {name: this.session.name, message: message, color: names[this.session.name]};
+            messages.push(m);
+            io.emit('message', m);
         }
     });
 };

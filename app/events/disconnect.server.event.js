@@ -1,7 +1,7 @@
 'use strict';
 
 var log = require('../../config/logger').logInfo,
-    names = require('../controllers/chat.server.controller');
+    names = require('../controllers/cache.server.controller').users;
 
 module.exports = function (Router) {
     var router = new Router('disconnect');
@@ -14,7 +14,7 @@ module.exports = function (Router) {
         delete names[name];
 
         this.emit('client-disconnected');
-        this.broadcast.emit('disconnection', {name: name, names: Object.keys(names)});
+        this.broadcast.emit('disconnection', {name: name, names: names});
 
         io.emit('connections-changed', io.sockets.sockets.length);
     });

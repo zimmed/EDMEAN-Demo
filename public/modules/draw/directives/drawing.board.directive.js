@@ -10,17 +10,22 @@
                     connected: '=drawingBoard'
                 },
                 link: function(scope, element){
-                    var ctx = element[0].getContext('2d');
+                    var canvas = element[0], ctx = canvas.getContext('2d');
+                    canvas.style.width='100%';
+                    canvas.style.height='100%';
+                    canvas.width  = canvas.offsetWidth;
+                    canvas.height = canvas.offsetHeight;
 
                     // variable that decides if something should be drawn on mousemove
                     var drawing = false;
                     var color = '#000';
                     var events = [];
+                    var handles = [];
 
                     // the last coordinates before the current move
                     var lastX, lastY, currentX, currentY;
 
-                    element.bind('mousedown', function(event){
+                    element.bind('mousedown touchstart', function(event){
                         if (scope.connected) {
                             if (typeof(event.offsetX) !== 'undefined') {
                                 lastX = event.offsetX;
@@ -36,7 +41,7 @@
                             drawing = true;
                         }
                     });
-                    element.bind('mousemove', function(event){
+                    element.bind('mousemove touchmove', function(event){
                         if(drawing){
                             // get current mouse position
                             if(typeof(event.offsetX) !== 'undefined'){
@@ -55,18 +60,39 @@
                         }
 
                     });
-                    element.bind('mouseup', function(event){
-                        // stop drawing
-                        drawing = false;
-                        sendDrawing();
+                    element.bind('mouseup touchend', function(event){
+                        if (drawing) {
+                            // stop drawing
+                            drawing = false;
+                            sendDrawing();
+                            handleDraws();
+                        }
                     });
 
                     Socket.on('new-draw', function (data) {
-                        for (var i = 0, l = data.events.length; i < l; i++) {
-                            var e = data.events[i];
-                            draw(e.x1, e.y1, e.x2, e.y2, data.color);
+                        if (scope.connected) {
+                            handles.push(data);
+                            handleDraws();
                         }
                     });
+
+                    Socket.on('client-connected', function (data) {
+                        handles = data.events;
+                        color = data.color;
+                        handleDraws();
+                    });
+
+                    function handleDraws () {
+                        var data;
+                        while (!drawing && handles.length > 0) {
+                            data = handles.pop();
+                            ctx.beginPath();
+                            for (var i = 0, l = data.events.length; i < l; i++) {
+                                var e = data.events[i];
+                                draw(e.x1, e.y1, e.x2, e.y2, data.color);
+                            }
+                        }
+                    }
 
                     function sendDrawing() {
                         Socket.emit('draw', {events: events});

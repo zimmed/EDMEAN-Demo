@@ -1,6 +1,6 @@
 'use strict';
 
-var APP_ENVIRONMENT_STATE = 'develop';
+var APP_ENVIRONMENT_STATE = 'release';
 
 var _ = require('lodash'),
     path = require('path'),

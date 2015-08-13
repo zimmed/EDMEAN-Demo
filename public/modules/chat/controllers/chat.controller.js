@@ -26,6 +26,13 @@
                     Socket.emit('signin', {name: name});
                 };
 
+                $scope.setNameStyle = function (clr) {
+                    return {
+                        'font-style': 'italic',
+                        'color': (clr === '#000' || clr === 'black') ? '#666' : clr
+                    };
+                };
+
                 $scope.sendMessage = function () {
                     var msg = $scope.tMessage;
                     if (msg === '') return;
@@ -34,26 +41,39 @@
                 };
 
                 Socket.on('message', function (data) {
-                    createMessage(data.name, data.message, data.color);
+                    if ($scope.user.connected) createMessage(data.name, data.message, data.color);
                 });
 
                 Socket.on('connection', function (data) {
-                    var name = data.name, names = data.names;
-                    $scope.users = names;
-                    createMessage('SYS', name + ' has joined the chat.', false, {'color':'#666','font-style':'italic'});
+                    if ($scope.user.connected) {
+                        var name = data.name, names = data.names;
+                        $scope.users = names;
+                        createMessage('SYS', name + ' has joined the chat.', false, {
+                            'color': '#666',
+                            'font-style': 'italic'
+                        });
+                    }
                 });
 
                 Socket.on('disconnection', function (data) {
-                    var name = data.name, names = data.names;
-                    $scope.users = names;
-                    createMessage('SYS', name + ' has left the chat.', false, {'color':'#666','font-style':'italic'});
+                    if ($scope.user.connected) {
+                        var name = data.name, names = data.names;
+                        $scope.users = names;
+                        createMessage('SYS', name + ' has left the chat.', false, {
+                            'color': '#666',
+                            'font-style': 'italic'
+                        });
+                    }
                 });
 
                 Socket.on('client-connected', function (data) {
-                    var name = data.name, names = data.names;
+                    var name = data.name, names = data.names, ms = $scope.messages;
                     $scope.user.connected = true;
                     $scope.user.name = name;
                     $scope.users = names;
+                    $scope.messages = [];
+                    createMessages(data.messages);
+                    $scope.messages = $scope.messages.concat(ms);
                 });
 
                 Socket.on('client-disconnected', function () {
@@ -72,6 +92,13 @@
                     };
                     console.log(message);
                     $scope.messages.push(message);
+                }
+
+                function createMessages(datas) {
+                    for (var i = 0, l = datas.length; i < l; i++) {
+                        var data = datas[i];
+                        createMessage(data.name, data.message, data.color);
+                    }
                 }
 
             }]
