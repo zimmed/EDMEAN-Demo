@@ -1,0 +1,13 @@
+<div ng-controller="ChatController">
+    <div ng-show="!user.connected">
+        <input type="text" ng-model="tName" placeholder="Enter a username.">
+        <button ng-click="login()">OK</button>
+    </div>
+    <div ng-show="user.connected">
+        <ul class="messages">
+            <li ng-repeat="message in messages">{{message}}</li>
+        </ul>
+        <input type="text" ng-model="tMessage" placeholder="Enter a message.">
+        <button ng-click="sendMessage()">SEND</button>
+    </div>
+</div>
