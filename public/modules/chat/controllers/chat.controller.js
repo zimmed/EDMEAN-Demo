@@ -41,7 +41,9 @@
                 };
 
                 Socket.on('message', function (data) {
-                    if ($scope.user.connected) createMessage(data.name, data.message, data.color);
+                    if ($scope.user.connected || data.name === 'SYS') {
+                        createMessage(data.name, data.message, data.color);
+                    }
                 });
 
                 Socket.on('connection', function (data) {

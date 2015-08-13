@@ -12,7 +12,8 @@ module.exports = function (Router) {
 
     router.add(function (name) {
         if (names.hasOwnProperty(name)) {
-            this.emit('message', {name: 'SYS', message: "This name is already in use."});
+            this.emit('message', {name: 'SYS', color: names['SYS'], message: "This name is already in use."});
+            log('User attempted to register name already in-use: ' + name)
         } else {
             names[name] = createColor();
             log('User registered name: ' + name);
