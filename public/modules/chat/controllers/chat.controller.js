@@ -79,6 +79,9 @@
                 Socket.on('client-disconnected', function () {
                     $scope.user.connected = false;
                     $scope.user.name = '';
+                    $scope.users = [];
+                    $scope.messages = [];
+                    createMessage('SYS', 'You have been disconnected.', '#000');
                 });
 
                 function createMessage(name, message, color, style) {

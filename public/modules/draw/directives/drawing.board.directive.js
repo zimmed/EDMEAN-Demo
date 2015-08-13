@@ -27,6 +27,8 @@
 
                     element.bind('mousedown touchstart', function(event){
                         if (scope.connected) {
+                            event.preventDefault();
+                            event.stopPropagation();
                             if (typeof(event.offsetX) !== 'undefined') {
                                 lastX = event.offsetX;
                                 lastY = event.offsetY;
@@ -43,6 +45,8 @@
                     });
                     element.bind('mousemove touchmove', function(event){
                         if(drawing){
+                            event.preventDefault();
+                            event.stopPropagation();
                             // get current mouse position
                             if(typeof(event.offsetX) !== 'undefined'){
                                 currentX = event.offsetX;
@@ -62,6 +66,8 @@
                     });
                     element.bind('mouseup touchend', function(event){
                         if (drawing) {
+                            event.preventDefault();
+                            event.stopPropagation();
                             // stop drawing
                             drawing = false;
                             sendDrawing();

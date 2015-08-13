@@ -15,7 +15,7 @@ module.exports = (function (appState) {
             baseUrl: '//localhost',
             mongoUrl: '//localhost',
             mongoPort: '27017',
-            mongoDBName: 'edmean-test',
+            mongoDBName: 'edmean-demo',
             serverIP: 'localhost',
             serverPort: '3030',
             loggerVerboseLevel: 'ALL',
@@ -50,7 +50,7 @@ module.exports = (function (appState) {
             sassMain: 'main',
 
             locals: {
-                title: 'EDMEAN.js Application',
+                title: 'EDMEAN.js Demo App',
                 description: 'The lightweight, Event-Driven MongoDB/Express/AngularJS/Node.js application framework.',
                 keywords: ['Express', 'Node.js', 'MongoDB', 'AngularJS', 'Event-Driven', 'MEAN', 'Framework', 'zimmed'],
                 authors: ['zimmed <zimmed@zimmed.io>'],
