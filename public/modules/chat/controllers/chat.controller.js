@@ -57,7 +57,7 @@
                 });
 
                 Socket.on('client-disconnected', function () {
-                    $scope.connected = false;
+                    $scope.user.connected = false;
                     $scope.user.name = '';
                 });
 
