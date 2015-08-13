@@ -3,8 +3,8 @@
 (function (ctrl) {
 
     ctrl.getModule('chat').controller('ChatController',
-        ['Socket', '$scope',
-            function (Socket, $scope) {
+        ['Socket', 'Config', '$scope',
+            function (Socket, Config, $scope) {
 
                 $scope.user = {
                     name: '',
@@ -20,10 +20,11 @@
                 createMessage('SYS', 'Enter a nickname to join the chat.', '#000');
 
                 $scope.login = function () {
-                    var name = $scope.tName;
+                    var name = $scope.tName,
+                        room = Config.roomid || '__root__';
                     if (name === '') return;
                     $scope.tName = '';
-                    Socket.emit('signin', {name: name});
+                    Socket.emit('signin', {name: name, room: room});
                 };
 
                 $scope.setNameStyle = function (clr) {

@@ -1,31 +1,35 @@
 'use strict';
 
 var log = require('../../config/logger').logInfo,
-    cache = require('../controllers/cache.server.controller'),
-    names = cache.users,
-    messages = cache.messages,
-    events = cache.events;
+    cache = require('../controllers/cache.server.controller');
 
 module.exports = function (Router) {
     var router = new Router('signin');
-    var r = Math.floor(Math.random() * 18);
 
-    router.add(function (name) {
+    router.add(function (name, room) {
+        var nsp = cache.namespace(room),
+            names = nsp.users,
+            messages = nsp.messages,
+            events = nsp.events,
+            io = router.getIO();
         if (names.hasOwnProperty(name)) {
             this.emit('message', {name: 'SYS', color: names['SYS'], message: "This name is already in use."});
-            log('User attempted to register name already in-use: ' + name)
+            log(room + '/User attempted to register name already in-use: ' + name)
         } else {
-            names[name] = createColor();
-            log('User registered name: ' + name);
+            names[name] = createColor(nsp);
+            log(room + '/User registered name: ' + name);
             this.session.name = name;
+            this.session.room = room;
 
-            this.emit('client-connected', {name: name, color: names[name], names: names, messages: messages, events: events});
+            this.join(room);
+            io.to(room).emit('client-connected', {name: name, color: names[name], names: names, messages: messages, events: events});
             this.emit('message', {name: 'SYS', message: "You are now known as " + name});
-            this.broadcast.emit('connection', {name: name, names: names});
+            this.broadcast.to(room).emit('connection', {name: name, names: names});
         }
     });
 
-    function createColor() {
+    function createColor(nsp) {
+        if (!nsp.hasOwnProperty('r')) nsp.r = Math.floor(Math.random() * 18);
         var colors = [
             'blue',
             'forestgreen',
@@ -47,6 +51,6 @@ module.exports = function (Router) {
             'darkviolet',
             'lightcoral'
         ];
-        return colors[r++ % colors.length];
+        return colors[nsp.r++ % colors.length];
     }
 };

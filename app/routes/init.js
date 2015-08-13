@@ -4,4 +4,5 @@ module.exports = function (app) {
     /** Set all express routes here **/
     //app.use('/example', require('./example.server.route'));
     app.use('/', require('./index.server.route'));
+    app.use('/r', require('./room.server.route'));
 };

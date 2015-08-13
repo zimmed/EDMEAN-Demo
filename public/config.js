@@ -24,6 +24,7 @@
         },
 
         appConstants: {
+            roomid: appLocals.roomid,
             baseUrl: appLocals.baseUrl,
             secure: appLocals.secure,
             port: appLocals.port,
