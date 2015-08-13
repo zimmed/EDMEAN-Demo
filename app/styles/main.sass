@@ -1,15 +1,25 @@
+@import "lib/reset"
 @import "bootstrap"
 @import "font-awesome"
 
-.messages
-  max-width: 600px
-  height: 200px
-  margin: 0 auto
-  background-color: #c0c0c0
-  li
-    list-style-type: none
-    text-align: left
-    em
-      color: #666
+.chatlog
+  background-color: #eee
+  .messages, .users
+    height: 250px
+    li
+      list-style-type: none
+      text-align: left
+      em
+        color: #666
+        font-style: italic
+  .users
+    background-color: #ccc
+    li
+      white-space: nowrap
+      overflow: hidden
+  .messages
+    border: 1px solid #666
 input[type=text]
-  width: 200px
+  width: 100%
+button
+  width: 100%

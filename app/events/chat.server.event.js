@@ -1,6 +1,7 @@
 'use strict';
 
-var log = require('../../config/logger').logInfo;
+var log = require('../../config/logger').logInfo,
+    names = require('../controllers/chat.server.controller');
 
 module.exports = function (Router) {
     var router = new Router('chat');
@@ -10,7 +11,7 @@ module.exports = function (Router) {
         if (!this.session.name) {
             this.emit('message', {name: "SYS", message: "You are not logged in."});
         } else {
-            io.emit('message', {name: this.session.name, message: message});
+            io.emit('message', {name: this.session.name, message: message, color: names[this.session.name]});
         }
     });
 };

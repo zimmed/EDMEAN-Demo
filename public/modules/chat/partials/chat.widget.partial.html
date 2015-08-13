@@ -1,13 +1,31 @@
 <div ng-controller="ChatController">
-    <ul class="messages">
-        <li ng-repeat="message in messages"><span ng-bind-html="message"></span></li>
-    </ul>
-    <div ng-show="!user.connected">
-        <input type="text" ng-model="tName" placeholder="Enter a username.">
-        <button ng-click="login()">OK</button>
+    <div class="chatlog row-fluid">
+        <ul class="users col-lg-3 col-md-3 col-xs-3">
+            <li ng-show="!user.connected"><strong><i>Disconnected</i></strong></li>
+            <li ng-show="user.connected"><strong><i>In Room</i></strong></li>
+            <li ng-show="user.connected" ng-repeat="user in users"><em ng-bind-html="user"></em></li>
+        </ul>
+        <ul class="messages col-lg-9 col-md-9 col-xs-9">
+            <li ng-repeat="message in messages | usersFilter:user.name track by $index ">
+                <span style="text-shadow:1px 1px 1px #000" ng-bind="message.name" ng-style="message.color" ng-show="message.name"></span>
+                <span ng-bind="message.message" ng-style="message.style"></span>
+            </li>
+        </ul>
     </div>
-    <div ng-show="user.connected">
-        <input type="text" ng-model="tMessage" placeholder="Enter a message.">
-        <button ng-click="sendMessage()">SEND</button>
+    <div class="row" ng-show="!user.connected">
+        <div class="col-lg-10 col-md-10 col-xs-10">
+            <input type="text" ng-model="tName" placeholder="Enter a username." ng-enter="login()">
+        </div>
+        <div class="col-lg-2 col-md-2 col-xs-2">
+            <button ng-click="login()">OK</button>
+        </div>
+    </div>
+    <div class="row" ng-show="user.connected">
+        <div class="col-lg-10 col-md-10 col-xs-10">
+            <input type="text" ng-model="tMessage" placeholder="Enter a message." ng-enter="sendMessage()">
+        </div>
+        <div class="col-lg-2 col-md-2 col-xs-2">
+            <button ng-click="sendMessage()">SEND</button>
+        </div>
     </div>
 </div>

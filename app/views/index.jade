@@ -1,16 +1,18 @@
 extends layout
 
 block content
-    .row.text-center
-        .col-md-12.jumbotron
-            h1= locals.title
-            p= locals.description
-    .row
-        .col-md-7.text-right
-            h3 Time to build a site. The World Wide Web is your oyster.
-            p Engine built by zimmed@zimmed.io.
-        .col-md-1
-        .col-md-4.panel.text-left(demo-connection-viewer)
-    .row
-        .col-md-12.text-center(chat-widget)
+    .container
+        .row.text-center
+            .col-md-12.jumbotron
+                h1= locals.title
+                p= locals.description
+        .row
+            .col-md-7.text-right
+                h3 Time to build a site. The World Wide Web is your oyster.
+                p Engine built by zimmed@zimmed.io.
+            .col-md-1
+            .col-md-4.panel.text-left(demo-connection-viewer)
+        .row
+            .col-md-6.text-center(chat-widget)
+            .col-md-6.text-center(draw-widget)
 

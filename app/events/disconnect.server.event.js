@@ -14,7 +14,7 @@ module.exports = function (Router) {
         delete names[name];
 
         this.emit('client-disconnected');
-        this.broadcast.emit('disconnection', name);
+        this.broadcast.emit('disconnection', {name: name, names: Object.keys(names)});
 
         io.emit('connections-changed', io.sockets.sockets.length);
     });
