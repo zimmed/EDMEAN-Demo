@@ -3,8 +3,6 @@
 module.exports = {
     secure: false,
     baseUrl: '//192.100.1.12',
-    mongoUrl: '//localhost',
-    mongoDBName: 'edmean-main',
     serverIP: '0.0.0.0',
     serverPort: '80',
     loggerVerboseLevel: 'INFO',

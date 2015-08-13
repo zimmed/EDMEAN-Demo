@@ -4,7 +4,6 @@ module.exports = {
     secure: false,
     baseUrl: '//localhost',
     mongoUrl: '//localhost',
-    mongoDBName: 'edmean-test',
     serverIP: 'localhost',
     serverPort: '8080',
     loggerVerboseLevel: 'ALL',
@@ -14,6 +13,4 @@ module.exports = {
     favicon: null,
 
     sessionCookie: {secure: false, maxAge: 15 * 60 * 1000},
-
-    locals: {title: 'EDMEAN.js Application | Dev'}
 };
