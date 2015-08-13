@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = { 'SYS': true };
+module.exports = { 'SYS': '#000' };
